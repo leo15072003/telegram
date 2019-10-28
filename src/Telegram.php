@@ -131,6 +131,10 @@ class Telegram
      */
     protected function sendRequest(string $endpoint, array $params, bool $multipart = false): ?ResponseInterface
     {
+        if (!blank($params['bot_token'])) {
+            $this->token = $params['bot_token'];
+        }
+        
         if (blank($this->token)) {
             throw CouldNotSendNotification::telegramBotTokenNotProvided('You must provide your telegram bot token to make any API requests.');
         }
